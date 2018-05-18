@@ -104,8 +104,8 @@ public class GameEngine {
         initGame();
 
         // ---------------- Beginning of game -------------
-        IPlayer currentPlayer = p1;//getBeginner();
-        IPlayer ennemy = p2;//getNotBeginner();
+        IPlayer currentPlayer = getBeginner();
+        IPlayer ennemy = getNotBeginner();
 
         while (currentPlayer.hasShipLeft() && ennemy.hasShipLeft()) {
 
@@ -150,7 +150,7 @@ public class GameEngine {
             ennemy = tmp;
         }
 
-        //changeBeginner();
+        changeBeginner();
 
         if(verbose) {
             if (!currentPlayer.hasShipLeft()) {
@@ -166,7 +166,6 @@ public class GameEngine {
 
         if (!currentPlayer.hasShipLeft()) {
             ennemy.incrScore();
-            //System.out.println(ennemy.getName() + " " + ennemy.getScore());
             return ennemy.getName();
         } else {
             currentPlayer.incrScore();
