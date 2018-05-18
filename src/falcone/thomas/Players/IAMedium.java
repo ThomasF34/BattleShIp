@@ -20,8 +20,6 @@ public class IAMedium implements IPlayer{
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
     private boolean beginner = false;
-    private final String level = "Medium";
-
 
     public IAMedium(String name){
         this.name = name;

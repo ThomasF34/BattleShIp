@@ -3,7 +3,6 @@ package falcone.thomas.Players;
 import falcone.thomas.Board.Coord;
 import falcone.thomas.Board.Ship;
 import falcone.thomas.Checks;
-import falcone.thomas.GameEngine;
 import falcone.thomas.Inputs;
 
 import java.util.ArrayList;
@@ -124,8 +123,6 @@ public class Human implements IPlayer {
     }
 
     /**
-     * @param LEN
-     * @param LETTERS
      * @return This function asks the shot to the player and returns it
      */
     public String giveShot(){
