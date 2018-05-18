@@ -33,7 +33,7 @@ public interface IPlayer {
      * @param coordMissil
      * @return
      */
-    boolean[] fire(Player playerToAttack, String coordMissil);
+    boolean[] fire(IPlayer playerToAttack, String coordMissil);
 
     String printShipGrid();
 
@@ -48,5 +48,11 @@ public interface IPlayer {
     int getNumberSankShip();
 
     int getScore();
+
+    void placeShips();
+
+    void placeShip(String coord1, String coord2);
+
+    String giveShot();
 }
 

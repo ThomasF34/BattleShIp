@@ -3,7 +3,7 @@ package falcone.thomas;
 import falcone.thomas.Board.Coord;
 import falcone.thomas.Board.Position;
 import falcone.thomas.Board.Ship;
-import falcone.thomas.Players.Player;
+import falcone.thomas.Players.IPlayer;
 
 public abstract class Checks {
     /**
@@ -31,7 +31,7 @@ public abstract class Checks {
      * @param coord2
      * @return
      */
-    static boolean checkDiago(String coord1, String coord2){
+    public static boolean checkDiago(String coord1, String coord2){
         if(coord1.charAt(0) != coord2.charAt(0) && coord1.charAt(1)!= coord2.charAt(1)){
             return true;
         } else {
@@ -45,7 +45,7 @@ public abstract class Checks {
      * @param length
      * @return
      */
-    static boolean checkCanBuildLength(Player player, int length){
+    public static boolean checkCanBuildLength(IPlayer player, int length){
         int[] list = player.getShipsToBeConstructed();
         if(length >= list.length){
             return false;
@@ -63,7 +63,7 @@ public abstract class Checks {
      * @param endCoord
      * @return true if ship can be placed, false if not
      */
-    static boolean checkCanBePlaced(Player player, String startCoord, String endCoord){
+    public static boolean checkCanBePlaced(IPlayer player, String startCoord, String endCoord){
         Position posFutureShip = new Position(new Coord(startCoord), new Coord(endCoord));
         for(Coord coordFutureShip : posFutureShip.getPos()){
             for(Ship playerShip : player.getShips()){
@@ -78,4 +78,5 @@ public abstract class Checks {
         }
         return true;
     }
+
 }

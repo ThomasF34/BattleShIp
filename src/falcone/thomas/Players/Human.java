@@ -24,6 +24,40 @@ public class Human implements IPlayer {
     }
 
     /**
+     * Ask player to place each ship until there's no more ship to be placed
+     */
+    public void placeShips() {
+        System.out.println(printShipGrid());
+        while(hasShipsToBeConstructed()) {
+            System.out.println(shipsLeft());
+            String coord1;
+            String coord2;
+            do{
+                do {
+                    do {
+                        coord1 = "";
+                        coord2 = "";
+                        while(!Checks.checkCoord(coord1)) {
+                            coord1 = Inputs.askCoord("première");
+                        }
+                        while (!Checks.checkCoord(coord2)) {
+                            coord2 = Inputs.askCoord("seconde");
+                        }
+                    } while (Checks.checkDiago(coord1, coord2));
+                    //Coord1 and 2 are both corects and aren't making a diagonal.
+                    System.out.println("Vous tentez de placer un bateau de taille " + Coord.length(coord1,coord2));
+                }while(!Checks.checkCanBuildLength(this,Coord.length(coord1,coord2)));
+                //A ship of this length can be placed
+            }while(!Checks.checkCanBePlaced(this,coord1,coord2));
+            //Ship can be placed
+
+            placeShip(coord1, coord2);
+            System.out.println("Bateau placé");
+            System.out.println(printShipGrid());
+        }
+    }
+
+    /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
      * Plus we are assuming that the ship can be placed by the player.
      * @param coord1
@@ -80,7 +114,7 @@ public class Human implements IPlayer {
      * @param LETTERS
      * @return This function asks the shot to the player and returns it
      */
-    public String giveShot(int LEN, String LETTERS){
+    public String giveShot(){
         String coordMissil;
         do{
             coordMissil = Inputs.askShot(this);
@@ -95,7 +129,7 @@ public class Human implements IPlayer {
      * @param coordMissil
      * @return
      */
-    public boolean[] fire(Player playerToAttack, String coordMissil){
+    public boolean[] fire(IPlayer playerToAttack, String coordMissil){
         Coord coord = new Coord(coordMissil);
         for(Ship ship : playerToAttack.getShips()){
             if(ship.isHit(coordMissil)) {
@@ -184,6 +218,25 @@ public class Human implements IPlayer {
             msg.append("\n");
             line++;
         }
+        return msg.toString();
+    }
+
+    /**
+     * Shows a list of remaining ships to place
+     */
+    private String shipsLeft(){
+        int[] list = this.getShipsToBeConstructed();
+        StringBuffer msg = new StringBuffer();
+        msg.append("----------- \nTaille des bateaux restant à placer : \n");
+        for(int i = 1; i < list.length; i++){
+            if(list[i]!=0){
+                msg.append(list[i]) ;
+                msg.append(" bateau(x) de taille ");
+                msg.append(i);
+                msg.append("\n");
+            }
+        }
+        msg.append("----------");
         return msg.toString();
     }
 

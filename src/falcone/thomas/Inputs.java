@@ -8,12 +8,12 @@ public class Inputs {
 
     private static Scanner sc = new Scanner(System.in);
 
-    static int askNbGame() {
+    public static int askNbGame() {
         System.out.println("Combien de match voulez-vous lancer pour ce benchmark ?");
         return sc.nextInt();
     }
 
-    static int askLevel(int i) {
+    public static int askLevel(int i) {
         int lvl;
         do{
             System.out.println("Quel est le niveau de l'IA n°"+ i +" ?");
@@ -22,18 +22,18 @@ public class Inputs {
         return lvl;
     }
 
-    static String askName(int i) {
+    public static String askName(int i) {
         System.out.println("Quel est le nom du joueur n°"+i+" ?");
         String line = sc.nextLine();
         return line;
     }
 
-    static int askMode(){
+    public static int askMode(){
         System.out.println("Quel mode ? \n0 Human vs Human\n1 IA vs Human \n2 IA vs IA\n3 Benchmark Manuel\n4 Benchmark Automatique\nAutre nombre pour quitter");
         return sc.nextInt();
     }
 
-    static String askCoord(String s) {
+    public static String askCoord(String s) {
         System.out.println("Entrez la " + s + "coordonée");
         return sc.nextLine();
     }

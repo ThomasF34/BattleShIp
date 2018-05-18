@@ -116,6 +116,21 @@ public class IA implements IPlayer{
     //IPlayer's functions
 
     /**
+     * Automatically places the ship of IA
+     */
+    public void placeShips(){
+        while(hasShipsToBeConstructed()){
+            String start = "";
+            String end = "";
+            do{
+                start = randomCoord(LEN,LETTERS);
+                end = shipsCoordinates(start);
+            }while(!Checks.checkCanBePlaced(this,start,end));
+            placeShip(start,end);
+        }
+
+    }
+    /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
      * Plus we are assuming that the ship can be placed by the player.
      * @param coord1
@@ -168,7 +183,7 @@ public class IA implements IPlayer{
     }
 
 
-    public String giveShot(int LEN, String LETTERS){
+    public String giveShot(){
         switch(level){
             case(0):
                 return randomCoord(LEN,LETTERS);
