@@ -1,10 +1,6 @@
 package falcone.thomas;
 
-import falcone.thomas.Board.Coord;
-import falcone.thomas.Players.Human;
-import falcone.thomas.Players.IA;
-import falcone.thomas.Players.IPlayer;
-import falcone.thomas.Players.Player;
+import falcone.thomas.Players.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,15 +44,52 @@ public class GameEngine {
         p1.placeShips();
         transition(5);
 
-        p2 = new IA("Watson",lengths,level);
+        switch(level){
+            case 0:
+                p2 = new IA0("Watson",lengths);
+
+                break;
+            case 1:
+                p2 = new IA1("Watson",lengths);
+
+                break;
+            default: //level 2
+                p2 = new IA2("Watson",lengths);
+                break;
+        }
+
         p2.placeShips();
     }
 
     public GameEngine(int level1, int level2){
         verbose = false;
-        p1 = new IA("Watson",lengths,level1);
+        switch(level1){
+            case 0:
+                p1 = new IA0("Watson",lengths);
+
+                break;
+            case 1:
+                p1 = new IA1("Watson",lengths);
+
+                break;
+            default: //level 2
+                p1 = new IA2("Watson",lengths);
+                break;
+        }
         p1.placeShips();
-        p2 = new IA("DeepBlue", lengths,level2);
+        switch(level2){
+            case 0:
+                p2 = new IA0("DeepBlue",lengths);
+
+                break;
+            case 1:
+                p2 = new IA1("DeepBlue",lengths);
+
+                break;
+            default: //level 2
+                p2 = new IA2("DeepBlue",lengths);
+                break;
+        }
         p2.placeShips();
     }
 

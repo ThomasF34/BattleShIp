@@ -11,21 +11,20 @@ import java.util.Random;
 import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 
-public class IA implements IPlayer{
+public class IA1 implements IPlayer{
 
     private String name;
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
-    private int level;
     private ArrayList<String> shotQueue = new ArrayList<>();
 
-    public IA(String name, int[] rulesShip, int level){
+    public IA1(String name, int[] rulesShip){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IA's Functions
+    //IA0's Functions
 
     private String[] getSurroundingCoord(String coord){
         char c = coord.charAt(0);
@@ -47,7 +46,7 @@ public class IA implements IPlayer{
      * We assume that this.hasShipToBeConstructed == true
      * @param startCoord
      */
-    public String shipsCoordinates(String startCoord){
+    private String shipsCoordinates(String startCoord){
         int i = 0;
         while(i < getShipsToBeConstructed().length && getShipsToBeConstructed()[i] == 0){
             i++;
@@ -91,7 +90,7 @@ public class IA implements IPlayer{
 
     }
 
-    public String randomOrient(){
+    private String randomOrient(){
         Random rand = new Random();
         int i = rand.nextInt(4);
         switch (i){
@@ -106,30 +105,17 @@ public class IA implements IPlayer{
         }
     }
 
-    public String randomCoord(int LEN, String LETTERS) {
+    private String randomCoord() {
         Random r = new Random();
         int i = r.nextInt(LEN);
         char c = LETTERS.charAt(r.nextInt(LETTERS.length()));
         return c + String.valueOf(i);
     }
 
+
+
     //IPlayer's functions
 
-    /**
-     * Automatically places the ship of IA
-     */
-    public void placeShips(){
-        while(hasShipsToBeConstructed()){
-            String start = "";
-            String end = "";
-            do{
-                start = randomCoord(LEN,LETTERS);
-                end = shipsCoordinates(start);
-            }while(!Checks.checkCanBePlaced(this,start,end));
-            placeShip(start,end);
-        }
-
-    }
     /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
      * Plus we are assuming that the ship can be placed by the player.
@@ -143,6 +129,22 @@ public class IA implements IPlayer{
     }
 
     /**
+     * Automatically places the ship of IA0
+     */
+    public void placeShips(){
+        while(hasShipsToBeConstructed()){
+            String start = "";
+            String end = "";
+            do{
+                start = randomCoord();
+                end = shipsCoordinates(start);
+            }while(!Checks.checkCanBePlaced(this,start,end));
+            placeShip(start,end);
+        }
+
+    }
+
+    /**
      * @return true if the player has any ship left to place on the grid, false if not
      */
     public boolean hasShipsToBeConstructed(){
@@ -153,19 +155,6 @@ public class IA implements IPlayer{
         }
         return false;
     }
-
-    /**
-     * @return true if the player has any ship that isn't sank, or false if all ships are sank.
-     */
-    public boolean hasShipLeft(){
-        for(Ship ship : ships){
-            if (!ship.isDestroyed()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /**
      * Indicates if the player has already shot at this coordinate
@@ -182,29 +171,12 @@ public class IA implements IPlayer{
         return false;
     }
 
-
     public String giveShot(){
-        switch(level){
-            case(0):
-                return randomCoord(LEN,LETTERS);
-            case(1):
-                String res;
-                do{
-                    res = randomCoord(LEN, LETTERS);
-                }while(hasAlreadyShot(res));
-                return res;
-            default: //level 2
-                if(shotQueue.isEmpty()){
-                    //as level 1
-                    String shot;
-                    do{
-                        shot = randomCoord(LEN, LETTERS);
-                    }while(hasAlreadyShot(shot));
-                    return shot;
-                } else {
-                    return shotQueue.remove(0);
-                }
-        }
+        String res;
+        do{
+            res = randomCoord();
+        }while(hasAlreadyShot(res));
+        return res;
     }
 
     /**
@@ -234,9 +206,19 @@ public class IA implements IPlayer{
         return new boolean[] {false,false};
     }
 
-    public int[] getShipsToBeConstructed() {
-        return shipsToBeConstructed;
+    /**
+     * @return true if the player has any ship that isn't sank, or false if all ships are sank.
+     */
+    public boolean hasShipLeft(){
+        for(Ship ship : ships){
+            if (!ship.isDestroyed()) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    //Printing informations
 
     public String printShipGrid(){
         StringBuffer msg = new StringBuffer();
@@ -314,6 +296,12 @@ public class IA implements IPlayer{
             line++;
         }
         return msg.toString();
+    }
+
+    //Getter - Setter
+
+    public int[] getShipsToBeConstructed() {
+        return shipsToBeConstructed;
     }
 
     public ArrayList<Ship> getShips() {
