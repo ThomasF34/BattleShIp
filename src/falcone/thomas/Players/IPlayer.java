@@ -47,12 +47,20 @@ public interface IPlayer {
 
     int getNumberSankShip();
 
-    int getScore();
-
     void placeShips();
 
     void placeShip(String coord1, String coord2);
 
     String giveShot();
+
+    int getScore();
+
+    void incrScore();
+
+    boolean isBeginner();
+
+    void setBeginner(boolean value);
+
+    void resetPlayer();
 }
 

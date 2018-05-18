@@ -1,6 +1,7 @@
 package fr.battleShip;
 
 import falcone.thomas.GameEngine;
+import falcone.thomas.Players.IPlayer;
 
 public class testIA {
 
@@ -19,8 +20,8 @@ public class testIA {
     private static String launchAIGame(int lvlIA1, int lvlIA2, int nbGame) {
         int w = 0;
         int db = 0;
+        GameEngine ge = new GameEngine(lvlIA1,lvlIA2);
         for(int i = 0; i < nbGame; i++){
-            GameEngine ge = new GameEngine(lvlIA1,lvlIA2);
             String winner = ge.begin();
             if(winner.equals("Watson")){
                 w ++;
@@ -28,6 +29,10 @@ public class testIA {
                 db ++;
             }
         }
-        return "Resultat : Watson (Niv " + lvlIA1 + ") "+ w + " DeepBlue (Niv " + lvlIA2 + ") " + db ;
+        return "Resultat : Watson (Niv " + lvlIA1 + ") "+ w + " DeepBlue (Niv " + lvlIA2 + ") " + db ;/*GameEngine ge = new GameEngine(lvlIA1,lvlIA2);
+        for(int i = 0; i < nbGame; i++){
+            ge.begin();
+        }
+        return "Resultat : Watson (Niv " + lvlIA1 + ") "+ ge.getP1().getScore()  + " DeepBlue (Niv " + lvlIA2 + ") " + ge.getP2().getScore()  ;*/
     }
 }

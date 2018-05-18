@@ -10,37 +10,24 @@ import java.util.Random;
 
 import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
+import static falcone.thomas.GameEngine.rulesShip;
 
 public class IA1 implements IPlayer{
 
     private String name;
+    private int score;
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
-    private ArrayList<String> shotQueue = new ArrayList<>();
+    private boolean beginner = false;
 
-    public IA1(String name, int[] rulesShip){
+
+    public IA1(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IA0's Functions
-
-    private String[] getSurroundingCoord(String coord){
-        char c = coord.charAt(0);
-        int i = Character.getNumericValue(coord.charAt(1));
-        char nextChar = (char) (c+1);
-        char precChar = (char) (c-1);
-        return new String[] {c+String.valueOf(i+1),c+String.valueOf(i-1),nextChar+String.valueOf(i),precChar+String.valueOf(i)};
-    }
-
-    private void addSurroundingCoordToQueue(String coordMissil) {
-        for(String str : getSurroundingCoord(coordMissil)){
-            if(Checks.checkCoord(str)){
-                shotQueue.add(str);
-            }
-        }
-    }
+    //IA1's Functions
 
     /**
      * We assume that this.hasShipToBeConstructed == true
@@ -112,9 +99,16 @@ public class IA1 implements IPlayer{
         return c + String.valueOf(i);
     }
 
-
-
     //IPlayer's functions
+
+    /**
+     * In order to begin a new party, resetPlayer reset all needed items.
+     */
+    public void resetPlayer(){
+        ships = new ArrayList<>();
+        shots = new ArrayList<>();
+        shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
+    }
 
     /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
@@ -192,14 +186,8 @@ public class IA1 implements IPlayer{
             if(ship.isHit(coordMissil)){
                 ship.positionHit(coordMissil);
                 coord.setHit(true);
-                addSurroundingCoordToQueue(coordMissil);
                 getShots().add(coord);
-                if(ship.isDestroyed()){
-                    shotQueue = new ArrayList<>();
-                    return new boolean[]{true, true};
-                } else {
-                    return new boolean[]{true, false};
-                }
+                return new boolean[]{true, ship.isDestroyed()};
             }
         }
         getShots().add(coord);
@@ -326,7 +314,19 @@ public class IA1 implements IPlayer{
         return count;
     }
 
-    public int getScore() {
-        return 0;
+    public int getScore(){
+        return score;
+    }
+
+    public void incrScore(){
+        score++;
+    }
+
+    public boolean isBeginner() {
+        return beginner;
+    }
+
+    public void setBeginner(boolean beginner) {
+        this.beginner = beginner;
     }
 }

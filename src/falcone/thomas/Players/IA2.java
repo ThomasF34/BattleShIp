@@ -10,16 +10,19 @@ import java.util.Random;
 
 import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
+import static falcone.thomas.GameEngine.rulesShip;
 
 public class IA2 implements IPlayer{
 
     private String name;
+    private int score;
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
     private ArrayList<String> shotQueue = new ArrayList<>();
+    private boolean beginner = false;
 
-    public IA2(String name, int[] rulesShip){
+    public IA2(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
@@ -112,9 +115,17 @@ public class IA2 implements IPlayer{
         return c + String.valueOf(i);
     }
 
-
-
     //IPlayer's functions
+
+    /**
+     * In order to begin a new party, resetPlayer reset all needed items.
+     */
+    public void resetPlayer(){
+        ships = new ArrayList<>();
+        shots = new ArrayList<>();
+        shotQueue = new ArrayList<>();
+        shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
+    }
 
     /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
@@ -331,7 +342,19 @@ public class IA2 implements IPlayer{
         return count;
     }
 
-    public int getScore() {
-        return 0;
+    public int getScore(){
+        return score;
+    }
+
+    public void incrScore(){
+        score++;
+    }
+
+    public boolean isBeginner() {
+        return beginner;
+    }
+
+    public void setBeginner(boolean beginner) {
+        this.beginner = beginner;
     }
 }

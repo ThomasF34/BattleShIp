@@ -3,6 +3,7 @@ package falcone.thomas.Players;
 import falcone.thomas.Board.Coord;
 import falcone.thomas.Board.Ship;
 import falcone.thomas.Checks;
+import falcone.thomas.GameEngine;
 import falcone.thomas.Inputs;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.Arrays;
 
 import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
+import static falcone.thomas.GameEngine.rulesShip;
+
 
 public class Human implements IPlayer {
 
@@ -17,9 +20,20 @@ public class Human implements IPlayer {
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
+    private int score;
+    private boolean beginner = false;
 
-    public Human(String name, int[] rulesShip){
+    public Human(String name){
         this.name = name;
+        shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
+    }
+
+    /**
+     * In order to begin a new party, resetPlayer reset all needed items.
+     */
+    public void resetPlayer(){
+        ships = new ArrayList<>();
+        shots = new ArrayList<>();
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
@@ -266,7 +280,19 @@ public class Human implements IPlayer {
         return shipsToBeConstructed;
     }
 
-    public int getScore() {
-        return 0;
+    public int getScore(){
+        return score;
+    }
+
+    public void incrScore(){
+        score++;
+    }
+
+    public boolean isBeginner() {
+        return beginner;
+    }
+
+    public void setBeginner(boolean beginner) {
+        this.beginner = beginner;
     }
 }
