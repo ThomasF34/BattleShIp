@@ -12,13 +12,13 @@ public class BattleShip {
                     GameEngine HvH = new GameEngine(name1, name1);
                     play(HvH);
                     break;
-                case 1: // Human vs IA0
+                case 1: // Human vs IABeginner
                     String name = Inputs.askName(1);
                     int lvl = Inputs.askLevel(2);
                     GameEngine HvIA = new GameEngine(name, lvl);
                     play(HvIA);
                     break;
-                /*case 2: // IA0 vs IA0
+                /*case 2: // IABeginner vs IABeginner
                     int lvlFirstAI = Inputs.askLevel(1);
                     int lvlSecondAI = Inputs.askLevel(2);
                     GameEngine IAvIA = new GameEngine(lvlFirstAI, lvlSecondAI);

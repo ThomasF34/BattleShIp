@@ -12,22 +12,39 @@ import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 import static falcone.thomas.GameEngine.rulesShip;
 
-public class IA1 implements IPlayer{
+public class IAHardcore implements IPlayer{
 
     private String name;
     private int score;
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
+    private ArrayList<String> shotQueue = new ArrayList<>();
     private boolean beginner = false;
 
 
-    public IA1(String name){
+    public IAHardcore(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IA1's Functions
+    //IABeginner's Functions
+
+    private String[] getSurroundingCoord(String coord){
+        char c = coord.charAt(0);
+        int i = Character.getNumericValue(coord.charAt(1));
+        char nextChar = (char) (c+1);
+        char precChar = (char) (c-1);
+        return new String[] {c+String.valueOf(i+1),c+String.valueOf(i-1),nextChar+String.valueOf(i),precChar+String.valueOf(i)};
+    }
+
+    private void addSurroundingCoordToQueue(String coordMissil) {
+        for(String str : getSurroundingCoord(coordMissil)){
+            if(Checks.checkCoord(str)){
+                shotQueue.add(str);
+            }
+        }
+    }
 
     /**
      * We assume that this.hasShipToBeConstructed == true
@@ -107,6 +124,7 @@ public class IA1 implements IPlayer{
     public void resetPlayer(){
         ships = new ArrayList<>();
         shots = new ArrayList<>();
+        shotQueue = new ArrayList<>();
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
@@ -123,7 +141,7 @@ public class IA1 implements IPlayer{
     }
 
     /**
-     * Automatically places the ship of IA0
+     * Automatically places the ship of IABeginner
      */
     public void placeShips(){
         while(hasShipsToBeConstructed()){
@@ -166,11 +184,16 @@ public class IA1 implements IPlayer{
     }
 
     public String giveShot(){
-        String res;
-        do{
-            res = randomCoord();
-        }while(hasAlreadyShot(res));
-        return res;
+        if(shotQueue.isEmpty()){
+            //as level 1
+            String shot;
+            do{
+                shot = randomCoord();
+            }while(hasAlreadyShot(shot));
+            return shot;
+        } else {
+            return shotQueue.remove(0);
+        }
     }
 
     /**
@@ -186,8 +209,14 @@ public class IA1 implements IPlayer{
             if(ship.isHit(coordMissil)){
                 ship.positionHit(coordMissil);
                 coord.setHit(true);
+                addSurroundingCoordToQueue(coordMissil);
                 getShots().add(coord);
-                return new boolean[]{true, ship.isDestroyed()};
+                if(ship.isDestroyed()){
+                    shotQueue = new ArrayList<>();
+                    return new boolean[]{true, true};
+                } else {
+                    return new boolean[]{true, false};
+                }
             }
         }
         getShots().add(coord);

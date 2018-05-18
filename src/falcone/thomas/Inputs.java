@@ -16,7 +16,7 @@ public class Inputs{
     public static int askLevel(int i) {
         int lvl;
         do{
-            System.out.println("Quel est le niveau de l'IA0 n°"+ i +" ?");
+            System.out.println("Quel est le niveau de l'IABeginner n°"+ i +" ?");
             lvl = sc.nextInt();
         }while(lvl < 0 || lvl > 2);
         return lvl;
@@ -31,7 +31,7 @@ public class Inputs{
     }
 
     public static int askMode(){
-        System.out.println("Quel mode ? \n0 Human vs Human\n1 IA0 vs Human \nAutre nombre pour quitter");
+        System.out.println("Quel mode ? \n0 Human vs Human\n1 IABeginner vs Human \nAutre nombre pour quitter");
         return sc.nextInt();
     }
 

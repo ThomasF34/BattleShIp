@@ -12,7 +12,7 @@ import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 import static falcone.thomas.GameEngine.rulesShip;
 
-public class IA0 implements IPlayer{
+public class IAMedium implements IPlayer{
 
     private String name;
     private int score;
@@ -20,14 +20,15 @@ public class IA0 implements IPlayer{
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
     private boolean beginner = false;
+    private final String level = "Medium";
 
 
-    public IA0(String name){
+    public IAMedium(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IA0's Functions
+    //IAMedium's Functions
 
     /**
      * We assume that this.hasShipToBeConstructed == true
@@ -109,6 +110,7 @@ public class IA0 implements IPlayer{
         shots = new ArrayList<>();
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
+
     /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
      * Plus we are assuming that the ship can be placed by the player.
@@ -122,7 +124,7 @@ public class IA0 implements IPlayer{
     }
 
     /**
-     * Automatically places the ship of IA0
+     * Automatically places the ship of IABeginner
      */
     public void placeShips(){
         while(hasShipsToBeConstructed()){
@@ -165,7 +167,11 @@ public class IA0 implements IPlayer{
     }
 
     public String giveShot(){
-        return randomCoord();
+        String res;
+        do{
+            res = randomCoord();
+        }while(hasAlreadyShot(res));
+        return res;
     }
 
     /**

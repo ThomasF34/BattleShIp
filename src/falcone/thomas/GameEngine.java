@@ -48,15 +48,15 @@ public class GameEngine {
 
         switch(level){
             case 0:
-                p2 = new IA0("Watson");
+                p2 = new IABeginner("Watson");
 
                 break;
             case 1:
-                p2 = new IA1("Watson");
+                p2 = new IAMedium("Watson");
 
                 break;
             default: //level 2
-                p2 = new IA2("Watson");
+                p2 = new IAHardcore("Watson");
                 break;
         }
 
@@ -69,29 +69,29 @@ public class GameEngine {
         verbose = false;
         switch(level1){
             case 0:
-                p1 = new IA0("Watson");
+                p1 = new IABeginner("Watson");
 
                 break;
             case 1:
-                p1 = new IA1("Watson");
+                p1 = new IAMedium("Watson");
 
                 break;
             default: //level 2
-                p1 = new IA2("Watson");
+                p1 = new IAHardcore("Watson");
                 break;
         }
         p1.placeShips();
         switch(level2){
             case 0:
-                p2 = new IA0("DeepBlue");
+                p2 = new IABeginner("DeepBlue");
 
                 break;
             case 1:
-                p2 = new IA1("DeepBlue");
+                p2 = new IAMedium("DeepBlue");
 
                 break;
             default: //level 2
-                p2 = new IA2("DeepBlue");
+                p2 = new IAHardcore("DeepBlue");
                 break;
         }
         p2.placeShips();
@@ -99,7 +99,7 @@ public class GameEngine {
         p1.setBeginner(true);
     }
 
-    public String begin(){
+    public IPlayer[] begin(){
 
         initGame();
 
@@ -166,13 +166,11 @@ public class GameEngine {
 
         if (!currentPlayer.hasShipLeft()) {
             ennemy.incrScore();
-            return ennemy.getName();
         } else {
             currentPlayer.incrScore();
-            return currentPlayer.getName();
         }
 
-
+        return new IPlayer[]{p1,p2};
     }
 
     private void initGame() {
