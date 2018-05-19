@@ -13,9 +13,9 @@ public class testIA {
     public static void main(String[] args){
 
         FileWriter f = null;
-        try{
+        try {
             f = initializeFile();
-        }catch (IOException e){
+        } catch (IOException e){
             System.out.println(e.getMessage());;
         }
 
@@ -24,10 +24,10 @@ public class testIA {
         launchAIGame(0, 2, f);
         launchAIGame(1, 2, f);
 
-        if(f!=null){
-            try{
+        if( f != null ){
+            try {
                 f.close();
-            }catch (IOException e){
+            } catch (IOException e){
                 System.out.println(e.getMessage());
             }
         }
