@@ -9,9 +9,8 @@ public class GameEngine {
     //Rules
     public static int LEN = 10;
     public static String LETTERS = "ABCDEFGHIJ";
-    public static int[] rulesShip = {0,0,1,2,1,1}; //Meaning the player can put 1 ship of length 5 (cause lengths[5] == 1)
+    public static int[] rulesShip = {0,0,1,1};//{0,0,1,2,1,1}; //Meaning the player can put 1 ship of length 5 (cause lengths[5] == 1)
 
-    private boolean verbose = true;
     private IPlayer p1;
     private IPlayer p2;
 
@@ -23,16 +22,9 @@ public class GameEngine {
         this.p1 = new Human(nameHuman1);
         System.out.println("Joueur " + p1.getName() + " créé");
 
-        //Creation of P1's ships
-        p1.placeShips();
-        transition(5);
-
         //Creation of second player
         this.p2 = new Human(nameHuman2);
         System.out.println("Joueur " + p2.getName() + " créé");
-
-        //Creation of P2's ships
-        p2.placeShips();
 
         p1.setBeginner(true);
     }
@@ -41,10 +33,6 @@ public class GameEngine {
         //Creation of first player
         this.p1 = new Human(nameHuman);
         System.out.println("Joueur " + p1.getName() + " créé");
-
-        //Creation of P1's ships
-        p1.placeShips();
-        transition(5);
 
         switch(level){
             case 0:
@@ -60,13 +48,10 @@ public class GameEngine {
                 break;
         }
 
-        p2.placeShips();
-
         p1.setBeginner(true);
     }
 
     public GameEngine(int level1, int level2){
-        verbose = false;
         switch(level1){
             case 0:
                 p1 = new IABeginner("Watson");
@@ -80,7 +65,7 @@ public class GameEngine {
                 p1 = new IAHardcore("Watson");
                 break;
         }
-        p1.placeShips();
+
         switch(level2){
             case 0:
                 p2 = new IABeginner("DeepBlue");
@@ -94,7 +79,6 @@ public class GameEngine {
                 p2 = new IAHardcore("DeepBlue");
                 break;
         }
-        p2.placeShips();
 
         p1.setBeginner(true);
     }
@@ -109,7 +93,7 @@ public class GameEngine {
 
         while (currentPlayer.hasShipLeft() && ennemy.hasShipLeft()) {
 
-            if (verbose) {
+            if (currentPlayer.getVerbose()) {
                 transition(5);
                 System.out.println(currentPlayer.getName() + ", c'est à vous de jouer");
                 System.out.println("Vous avez coulé " + ennemy.getNumberSankShip() + " bateau(x) de " + ennemy.getName());
@@ -123,7 +107,7 @@ public class GameEngine {
             String coordMissil = currentPlayer.giveShot();
 
             if (currentPlayer.hasAlreadyShot(coordMissil)) {
-                if (verbose) {
+                if (currentPlayer.getVerbose()) {
                     System.out.println("Dommage, vous avez déja tiré ici...");
                 }
             } else {
@@ -133,7 +117,7 @@ public class GameEngine {
                 hit = result[0];
                 sank = result[1];
 
-                if (verbose) {
+                if (currentPlayer.getVerbose()) {
                     if (hit) {
                         System.out.println("Bravo !! Vous avez touché un des bateaux de " + ennemy.getName());
                         if (sank) {
@@ -152,16 +136,14 @@ public class GameEngine {
 
         changeBeginner();
 
-        if(verbose) {
-            if (!currentPlayer.hasShipLeft()) {
-                System.out.println("Félicitations " + ennemy.getName() + ". Vous avez coulé tous les bateaux de " + currentPlayer.getName() + ".\n" +
-                        "C'est à vous que revient la victoire.");
-            }
+        if (!currentPlayer.hasShipLeft()) {
+            System.out.println("Félicitations " + ennemy.getName() + ". Vous avez coulé tous les bateaux de " + currentPlayer.getName() + ".\n" +
+                    "C'est à vous que revient la victoire.");
+        }
 
-            if (!ennemy.hasShipLeft()) {
-                System.out.println("Félicitations " + currentPlayer.getName() + ". Vous avez coulé tous les bateaux de " + ennemy.getName() + ".\n" +
-                        "C'est à vous que revient la victoire.");
-            }
+        if (!ennemy.hasShipLeft()) {
+            System.out.println("Félicitations " + currentPlayer.getName() + ". Vous avez coulé tous les bateaux de " + ennemy.getName() + ".\n" +
+                    "C'est à vous que revient la victoire.");
         }
 
         if (!currentPlayer.hasShipLeft()) {
@@ -173,17 +155,34 @@ public class GameEngine {
         return new IPlayer[]{p1,p2};
     }
 
+    /**
+     * Initialization of the game : It resets Players and places ships
+     */
     private void initGame() {
         p1.resetPlayer();
         p2.resetPlayer();
         p1.placeShips();
+        //If 2nd Player is human and infos are printed, we use transition to hide a little
+        //the ships grid of first player
+        if(p2.getVerbose()){
+            transition(5);
+        }
         p2.placeShips();
     }
 
+    /**
+     * @return Returns a String to describe the actual score of players
+     */
     public String printScore() {
         return "Résultat : " + p1.getName() + " " + p1.getScore() + " | " + p2.getName() + " " + p2.getScore();
     }
 
+    /**
+     * Purely optionnal, this function is only here to delay the display and print new line.
+     * Thus, the first player will have time to see the text printed and let the second one take
+     * place without seeing the text of first player.
+     * @param numNewLine Number of line you want to print to hide text
+     */
     private static void transition(int numNewLine) {
         for(int i = 0; i <= 5; i++){
             try{
@@ -198,14 +197,6 @@ public class GameEngine {
         for(int i = 1; i <= numNewLine; i++){
             System.out.println("\n");
         }
-    }
-
-    public IPlayer getP1() {
-        return p1;
-    }
-
-    public IPlayer getP2() {
-        return p2;
     }
 
     private IPlayer getBeginner() {

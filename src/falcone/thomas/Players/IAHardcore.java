@@ -187,7 +187,7 @@ public class IAHardcore implements IPlayer{
      * How IA Hardcore is working : When the missil hits a ship we add the four surrounding
      * coordinates to the Queue. If the queue isn't empty, we shot the indicates coordinates on
      * the queue. If not, we choose to fire at a random coordinates. In both cases, we check if
-     * the coordinates hasn't been already shot. 
+     * the coordinates hasn't been already shot.
      * @return
      */
     public String giveShot(){
@@ -371,5 +371,9 @@ public class IAHardcore implements IPlayer{
 
     public void setBeginner(boolean beginner) {
         this.beginner = beginner;
+    }
+
+    public boolean getVerbose() {
+        return false;
     }
 }

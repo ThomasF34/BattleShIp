@@ -5,11 +5,11 @@ public class BattleShip {
     public static void main(String[] args) {
         while(true) {
             int mode = Inputs.askMode();
-            switch (0) {
+            switch (mode) {
                 case 0: //Human vs Human
                     String name1 = Inputs.askName(1);
-                    //String name2 = Inputs.askName(2);
-                    GameEngine HvH = new GameEngine(name1, name1);
+                    String name2 = Inputs.askName(2);
+                    GameEngine HvH = new GameEngine(name1, name2);
                     play(HvH);
                     break;
                 case 1: // Human vs IABeginner
@@ -18,12 +18,6 @@ public class BattleShip {
                     GameEngine HvIA = new GameEngine(name, lvl);
                     play(HvIA);
                     break;
-                /*case 2: // IABeginner vs IABeginner
-                    int lvlFirstAI = Inputs.askLevel(1);
-                    int lvlSecondAI = Inputs.askLevel(2);
-                    GameEngine IAvIA = new GameEngine(lvlFirstAI, lvlSecondAI);
-                    play(IAvIA);
-                    break;*/
                 default: //Error
                     System.exit(0);
                     break;
@@ -39,7 +33,6 @@ public class BattleShip {
             playAgain = Inputs.askContinue();
         }while(playAgain);
     }
-    // TODO: 11/05/2018 Benchmark auto
     // TODO: 16/05/2018 Verfi interfaces
 
 }

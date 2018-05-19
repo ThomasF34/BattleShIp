@@ -62,5 +62,7 @@ public interface IPlayer {
     void setBeginner(boolean value);
 
     void resetPlayer();
+
+    boolean getVerbose();
 }
 

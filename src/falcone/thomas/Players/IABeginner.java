@@ -323,4 +323,8 @@ public class IABeginner implements IPlayer{
     public void setBeginner(boolean beginner) {
         this.beginner = beginner;
     }
+
+    public boolean getVerbose() {
+        return false;
+    }
 }

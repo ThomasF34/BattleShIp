@@ -8,31 +8,25 @@ public class Inputs{
 
     private static Scanner sc = new Scanner(System.in);
 
-    public static int askNbGame() {
-        System.out.println("Combien de match voulez-vous lancer pour ce benchmark ?");
-        return sc.nextInt();
-    }
-
     public static int askLevel(int i) {
         int lvl;
         do{
-            System.out.println("Quel est le niveau de l'IABeginner n°"+ i +" ?");
-            lvl = sc.nextInt();
+            System.out.println("Quel est le niveau de l'IA n°"+ i +" ?");
+            lvl = Integer.parseInt(sc.nextLine());//sc.nextInt() only read the int and following sc.nextLine()
+            //will return an empty lines. With ParseInt(nextLine) we avoid this problem.
         }while(lvl < 0 || lvl > 2);
         return lvl;
     }
 
-    public static String askName(int i) { // FIXME: 18/05/2018 Impression des deux lignes à la fois
+    public static String askName(int i) {
         System.out.println("Quel est le nom du joueur n°"+ i +" ?");
-        System.out.println("Il m'a pas répondu");
-        String line = sc.nextLine();
-        System.out.println("Il m'a répondu");
-        return line;
+        return sc.nextLine();
     }
 
     public static int askMode(){
-        System.out.println("Quel mode ? \n0 Human vs Human\n1 IABeginner vs Human \nAutre nombre pour quitter");
-        return sc.nextInt();
+        System.out.println("Quel mode ? \n0 Human vs Human\n1 IA vs Human \nAutre nombre pour quitter");
+        return Integer.parseInt(sc.nextLine()); //sc.nextInt() only read the int and following sc.nextLine()
+        //will return an empty lines. With ParseInt(nextLine) we avoid this problem.
     }
 
     public static String askCoord(String s) {
@@ -49,7 +43,8 @@ public class Inputs{
         int res;
         do {
             System.out.println("Voulez-vous refaire une partie ? (0 | 1)");
-            res = sc.nextInt();
+            res = Integer.parseInt(sc.nextLine());//sc.nextInt() only read the int and following sc.nextLine()
+            //will return an empty lines. With ParseInt(nextLine) we avoid this problem.
         } while (res != 0 && res != 1);
         return res == 1;
     }

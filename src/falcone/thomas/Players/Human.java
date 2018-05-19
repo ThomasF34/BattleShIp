@@ -40,6 +40,7 @@ public class Human implements IPlayer {
      * Ask player to place each ship until there's no more ship to be placed
      */
     public void placeShips() {
+        System.out.println(name+", c'est à votre tour de placer vos bateaux");
         System.out.println(printShipGrid());
         while(hasShipsToBeConstructed()) {
             System.out.println(shipsLeft());
@@ -48,14 +49,12 @@ public class Human implements IPlayer {
             do{
                 do {
                     do {
-                        coord1 = "";
-                        coord2 = "";
-                        while(!Checks.checkCoord(coord1)) {
+                        do {
                             coord1 = Inputs.askCoord("première");
-                        }
-                        while (!Checks.checkCoord(coord2)) {
+                        }while(!Checks.checkCoord(coord1));
+                        do {
                             coord2 = Inputs.askCoord("seconde");
-                        }
+                        } while (!Checks.checkCoord(coord2));
                     } while (Checks.checkDiago(coord1, coord2));
                     //Coord1 and 2 are both corects and aren't making a diagonal.
                     System.out.println("Vous tentez de placer un bateau de taille " + Coord.length(coord1,coord2));
@@ -291,5 +290,9 @@ public class Human implements IPlayer {
 
     public void setBeginner(boolean beginner) {
         this.beginner = beginner;
+    }
+
+    public boolean getVerbose() {
+        return true;
     }
 }
