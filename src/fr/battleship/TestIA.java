@@ -19,7 +19,6 @@ public class TestIA {
             System.out.println(e.getMessage());;
         }
 
-
         launchAIGame(0, 1, f);
         launchAIGame(0, 2, f);
         launchAIGame(1, 2, f);

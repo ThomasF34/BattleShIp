@@ -4,7 +4,7 @@ import falcone.thomas.Players.IPlayer;
 
 import java.util.Scanner;
 
-public class Inputs{
+public abstract class Inputs{
 
     private static Scanner sc = new Scanner(System.in);
 
