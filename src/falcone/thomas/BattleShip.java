@@ -14,7 +14,7 @@ public class BattleShip {
                     break;
                 case 1: // Human vs IABeginner
                     String name = Inputs.askName(1);
-                    int lvl = Inputs.askLevel(2);
+                    int lvl = Inputs.askLevel(1);
                     GameEngine HvIA = new GameEngine(name, lvl);
                     play(HvIA);
                     break;
