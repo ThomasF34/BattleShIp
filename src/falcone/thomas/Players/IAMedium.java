@@ -229,7 +229,7 @@ public class IAMedium implements IPlayer{
                 Coord c = new Coord(i,j);
                 boolean found = false;
                 for(Ship ship : ships){
-                    for(Coord coordShip : ship.getPosition().getPos()){
+                    for(Coord coordShip : ship.getPosition()){
                         if(c.equals(coordShip)){
                             found = true;
                             if(coordShip.getHit()){

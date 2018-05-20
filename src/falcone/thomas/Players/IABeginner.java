@@ -70,7 +70,6 @@ public class IABeginner implements IPlayer{
             res = "";
             res += newChar;
             res += newInt;
-
         }while(!Checks.checkCoord(res));
         return res;
 
@@ -133,7 +132,6 @@ public class IABeginner implements IPlayer{
             }while(!Checks.checkCanBePlaced(this,start,end));
             placeShip(start,end);
         }
-
     }
 
     /**
@@ -225,7 +223,7 @@ public class IABeginner implements IPlayer{
                 Coord c = new Coord(i,j);
                 boolean found = false;
                 for(Ship ship : ships){
-                    for(Coord coordShip : ship.getPosition().getPos()){
+                    for(Coord coordShip : ship.getPosition()){
                         if(c.equals(coordShip)){
                             found = true;
                             if(coordShip.getHit()){

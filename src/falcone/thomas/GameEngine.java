@@ -9,7 +9,7 @@ public class GameEngine {
     //Rules
     public static int LEN = 10;
     public static String LETTERS = "ABCDEFGHIJ";
-    public static int[] rulesShip = {0,0,1,1};//{0,0,1,2,1,1}; //Meaning the player can put 1 ship of length 5 (cause lengths[5] == 1)
+    public static int[] rulesShip = {0,0,1,2,1,1}; //Meaning the player can put 1 ship of length 5 (cause lengths[5] == 1)
 
     private IPlayer p1;
     private IPlayer p2;

@@ -4,18 +4,14 @@ import java.util.ArrayList;
 
 public class Position {
 
-    private Coord startCoord;
-    private Coord endCoord;
-    private ArrayList<Coord> pos = new ArrayList<>();
-
-
-    /**
+/*
+    *//**
      * Creation of the ship's position. Position contains both starting and ending coordinates, as well as a list of coordinates that are occupied by the given ship.
      * @param startCoord
      * @param endCoord
      *
      * Here, we suppose that the coordinates have been verified
-     */
+     *//*
     public Position(Coord startCoord, Coord endCoord){
         this.startCoord = startCoord;
         this.endCoord = endCoord;
@@ -78,6 +74,6 @@ public class Position {
 
     public ArrayList<Coord> getPos() {
         return pos;
-    }
+    }*/
 }
 

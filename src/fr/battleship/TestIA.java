@@ -1,4 +1,4 @@
-package fr.battleShip;
+package fr.battleship;
 
 import falcone.thomas.GameEngine;
 import falcone.thomas.Players.IPlayer;
@@ -6,7 +6,7 @@ import falcone.thomas.Players.IPlayer;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class testIA {
+public class TestIA {
 
     private static int NBGAME = 100;
 

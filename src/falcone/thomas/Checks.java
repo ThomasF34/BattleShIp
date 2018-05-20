@@ -64,12 +64,14 @@ public abstract class Checks {
      * @return true if ship can be placed, false if not
      */
     public static boolean checkCanBePlaced(IPlayer player, String startCoord, String endCoord){
-        Position posFutureShip = new Position(new Coord(startCoord), new Coord(endCoord));
-        for(Coord coordFutureShip : posFutureShip.getPos()){
+        Ship futureShip = new Ship(startCoord, endCoord);
+        for(Coord coordFutureShip : futureShip.getPosition()){
             for(Ship playerShip : player.getShips()){
-                for(Coord coord : playerShip.getPosition().getPos()){
+                for(Coord coord : playerShip.getPosition()){
                     if(coord.equals(coordFutureShip)){
-                        //System.out.println("Ce bateau chevauche un autre bateau !! ");
+                        if(player.getVerbose()){
+                            System.out.println("Ce bateau chevauche un autre bateau !! ");
+                        }
                         return false;
                     }
                 }
