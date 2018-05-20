@@ -1,6 +1,6 @@
 package falcone.thomas;
 
-public class BattleShip {
+public class Battleship {
 
     public static void main(String[] args) {
         while(true) {
@@ -12,7 +12,7 @@ public class BattleShip {
                     GameEngine HvH = new GameEngine(name1, name2);
                     play(HvH);
                     break;
-                case 1: // Human vs IABeginner
+                case 1: // Human vs AIBeginner
                     String name = Inputs.askName(1);
                     int lvl = Inputs.askLevel(1);
                     GameEngine HvIA = new GameEngine(name, lvl);

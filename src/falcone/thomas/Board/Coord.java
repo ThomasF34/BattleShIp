@@ -6,7 +6,7 @@ public class Coord {
     private boolean hit;
 
     /**
-     * Création des coordonnées. Renvoie des exceptions si la coordonnée est en dehors de la grille
+     * Creation of coordinates.
      * @param letter
      * @param figure
      */

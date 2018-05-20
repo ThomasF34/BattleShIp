@@ -36,15 +36,15 @@ public class GameEngine {
 
         switch(level){
             case 0:
-                p2 = new IABeginner("Watson");
+                p2 = new AIBeginner("Watson");
 
                 break;
             case 1:
-                p2 = new IAMedium("Watson");
+                p2 = new AIMedium("Watson");
 
                 break;
             default: //level 2
-                p2 = new IAHardcore("Watson");
+                p2 = new AIHardcore("Watson");
                 break;
         }
 
@@ -54,29 +54,29 @@ public class GameEngine {
     public GameEngine(int level1, int level2){
         switch(level1){
             case 0:
-                p1 = new IABeginner("Watson");
+                p1 = new AIBeginner("Watson");
 
                 break;
             case 1:
-                p1 = new IAMedium("Watson");
+                p1 = new AIMedium("Watson");
 
                 break;
             default: //level 2
-                p1 = new IAHardcore("Watson");
+                p1 = new AIHardcore("Watson");
                 break;
         }
 
         switch(level2){
             case 0:
-                p2 = new IABeginner("DeepBlue");
+                p2 = new AIBeginner("DeepBlue");
 
                 break;
             case 1:
-                p2 = new IAMedium("DeepBlue");
+                p2 = new AIMedium("DeepBlue");
 
                 break;
             default: //level 2
-                p2 = new IAHardcore("DeepBlue");
+                p2 = new AIHardcore("DeepBlue");
                 break;
         }
 

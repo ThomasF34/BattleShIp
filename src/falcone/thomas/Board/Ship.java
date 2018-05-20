@@ -9,11 +9,11 @@ public class Ship {
     private ArrayList<Coord> position = new ArrayList<>();
 
     /**
-     * Cette fonction crée un bateau remplissant la fourchette de coordonnées données en paramètre
-     * @param startC Coordonnée de départ (sous forme 'LettreChiffre')
-     * @param endC Coordonnée de fin (sous forme 'LettreChiffre')
+     * This function creates the ship and fill the list Position.
+     * @param startC departure coordinates (String with format 'LetterFigure')
+     * @param endC End coordinates (String with format 'LetterFigure')
      *
-     * On suppose que les coordonées ont déjà été vérifiées (Pas en dehors de la grille & pas de diago)
+     * Supoosing coordinates are checked (Not out of bound and not making diagonal)
      */
     public Ship(String startC, String endC){
         this.startCoord = new Coord(startC);

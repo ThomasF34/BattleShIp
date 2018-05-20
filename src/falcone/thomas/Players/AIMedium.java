@@ -12,7 +12,7 @@ import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 import static falcone.thomas.GameEngine.rulesShip;
 
-public class IAMedium implements IPlayer{
+public class AIMedium implements IPlayer{
 
     private String name;
     private int score;
@@ -21,12 +21,12 @@ public class IAMedium implements IPlayer{
     private int[] shipsToBeConstructed;
     private boolean beginner = false;
 
-    public IAMedium(String name){
+    public AIMedium(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IAMedium's Functions
+    //AIMedium's Functions
 
     /**
      * We assume that this.hasShipToBeConstructed == true
@@ -122,7 +122,7 @@ public class IAMedium implements IPlayer{
     }
 
     /**
-     * Automatically places the ship of IABeginner
+     * Automatically places the ship of AIBeginner
      */
     public void placeShips(){
         while(hasShipsToBeConstructed()){

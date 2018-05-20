@@ -12,21 +12,39 @@ import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 import static falcone.thomas.GameEngine.rulesShip;
 
-public class IABeginner implements IPlayer{
+public class AIHardcore implements IPlayer{
 
     private String name;
     private int score;
     private ArrayList<Ship> ships = new ArrayList<>();
     private ArrayList<Coord> shots = new ArrayList<>();
     private int[] shipsToBeConstructed;
+    private ArrayList<String> shotQueue = new ArrayList<>();
     private boolean beginner = false;
 
-    public IABeginner(String name){
+
+    public AIHardcore(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
 
-    //IABeginner's Functions
+    //AIBeginner's Functions
+
+    private String[] getSurroundingCoord(String coord){
+        char c = coord.charAt(0);
+        int i = Character.getNumericValue(coord.charAt(1));
+        char nextChar = (char) (c+1);
+        char precChar = (char) (c-1);
+        return new String[] {c+String.valueOf(i+1),c+String.valueOf(i-1),nextChar+String.valueOf(i),precChar+String.valueOf(i)};
+    }
+
+    private void addSurroundingCoordToQueue(String coordMissil) {
+        for(String str : getSurroundingCoord(coordMissil)){
+            if(Checks.checkCoord(str)){
+                shotQueue.add(str);
+            }
+        }
+    }
 
     /**
      * We assume that this.hasShipToBeConstructed == true
@@ -70,6 +88,7 @@ public class IABeginner implements IPlayer{
             res = "";
             res += newChar;
             res += newInt;
+
         }while(!Checks.checkCoord(res));
         return res;
 
@@ -105,8 +124,10 @@ public class IABeginner implements IPlayer{
     public void resetPlayer(){
         ships = new ArrayList<>();
         shots = new ArrayList<>();
+        shotQueue = new ArrayList<>();
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }
+
     /**
      * This function places the ship. We assume that the coordinates are both correct and aren't making a diagonal
      * Plus we are assuming that the ship can be placed by the player.
@@ -120,7 +141,7 @@ public class IABeginner implements IPlayer{
     }
 
     /**
-     * Automatically places the ship of IABeginner
+     * Automatically places the ship of AIBeginner
      */
     public void placeShips(){
         while(hasShipsToBeConstructed()){
@@ -132,6 +153,7 @@ public class IABeginner implements IPlayer{
             }while(!Checks.checkCanBePlaced(this,start,end));
             placeShip(start,end);
         }
+
     }
 
     /**
@@ -161,8 +183,31 @@ public class IABeginner implements IPlayer{
         return false;
     }
 
+    /**
+     * How IA Hardcore is working : When the missil hits a ship we add the four surrounding
+     * coordinates to the Queue. If the queue isn't empty, we shot the indicates coordinates on
+     * the queue. If not, we choose to fire at a random coordinates. In both cases, we check if
+     * the coordinates hasn't been already shot.
+     * @return
+     */
     public String giveShot(){
-        return randomCoord();
+        if(shotQueue.isEmpty()){
+            String shot;
+            do{
+                shot = randomCoord();
+            }while(hasAlreadyShot(shot));
+            return shot;
+        } else {
+            String futureShot;
+            do{
+                try{
+                    futureShot = shotQueue.remove(0);
+                }catch (IndexOutOfBoundsException e){ //Meaning that the shotQueue is empty
+                    futureShot = randomCoord();
+                }
+            }while(hasAlreadyShot(futureShot));
+            return futureShot;
+        }
     }
 
     public boolean shipHit(String coordMissil) {
@@ -188,8 +233,14 @@ public class IABeginner implements IPlayer{
         Coord coord = new Coord(coordMissil);
         coord.setHit(hit);
         shots.add(coord);
-    }
+        if(hit){
+            addSurroundingCoordToQueue(coordMissil);
+        }
+        if(sank){
+            shotQueue = new ArrayList<>();
+        }
 
+    }
 
     /**
      * @return true if the player has any ship that isn't sank, or false if all ships are sank.
