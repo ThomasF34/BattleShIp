@@ -167,26 +167,31 @@ public class IABeginner implements IPlayer{
         return randomCoord();
     }
 
-    /**
-     * This function fires the missile to playerToAttack's grid. It returns an array of 2 booleans. First one indicates if
-     * a ship has been hit and the second one if the ship is sank.
-     * @param playerToAttack
-     * @param coordMissil
-     * @return
-     */
-    public boolean[] fire(IPlayer playerToAttack, String coordMissil){
-        Coord coord = new Coord(coordMissil);
-        for(Ship ship : playerToAttack.getShips()){
-            if(ship.isHit(coordMissil)){
-                ship.positionHit(coordMissil);
-                coord.setHit(true);
-                getShots().add(coord);
-                return new boolean[]{true, ship.isDestroyed()};
+    public boolean shipHit(String coordMissil) {
+        for (Ship ship : getShips()) {
+            if (ship.isHit(coordMissil)) {
+                return true;
             }
         }
-        getShots().add(coord);
-        return new boolean[] {false,false};
+        return false;
     }
+
+    public boolean updateShit(String coordMissil) {
+        for (Ship ship : getShips()) {
+            if(ship.isHit(coordMissil)){
+                ship.positionHit(coordMissil);
+                return ship.isDestroyed();
+            }
+        }
+        return false;
+    }
+
+    public void resultOfShot(String coordMissil, boolean hit, boolean sank){
+        Coord coord = new Coord(coordMissil);
+        coord.setHit(hit);
+        shots.add(coord);
+    }
+
 
     /**
      * @return true if the player has any ship that isn't sank, or false if all ships are sank.

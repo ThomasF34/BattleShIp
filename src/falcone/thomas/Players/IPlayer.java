@@ -26,15 +26,6 @@ public interface IPlayer {
      */
     boolean hasAlreadyShot(String coordMissil);
 
-    /**
-     * This function fires the missile to playerToAttack's grid. It returns an array of 2 booleans. First one indicates if
-     * a ship has been hit and the second one if the ship is sank.
-     * @param playerToAttack
-     * @param coordMissil
-     * @return
-     */
-    boolean[] fire(IPlayer playerToAttack, String coordMissil);
-
     String printShipGrid();
 
     String printHitGrid();
@@ -64,5 +55,12 @@ public interface IPlayer {
     void resetPlayer();
 
     boolean getVerbose();
+
+    boolean shipHit(String coordMissil);
+
+    boolean updateShit(String coordMissil);
+
+    void resultOfShot(String coordMissil,boolean hit, boolean sank);
+
 }
 

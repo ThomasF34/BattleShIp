@@ -103,7 +103,7 @@ public class GameEngine {
                 System.out.println(currentPlayer.printHitGrid());
             }
 
-            //Fire section
+            //Fire Section
             String coordMissil = currentPlayer.giveShot();
 
             if (currentPlayer.hasAlreadyShot(coordMissil)) {
@@ -111,11 +111,14 @@ public class GameEngine {
                     System.out.println("Dommage, vous avez déja tiré ici...");
                 }
             } else {
-                boolean[] result = currentPlayer.fire(ennemy, coordMissil);
 
-                boolean hit, sank;
-                hit = result[0];
-                sank = result[1];
+                boolean hit = ennemy.shipHit(coordMissil);
+                boolean sank = false;
+                if(hit){
+                    sank = ennemy.updateShit(coordMissil);
+                }
+                currentPlayer.resultOfShot(coordMissil,hit,sank);
+
 
                 if (currentPlayer.getVerbose()) {
                     if (hit) {
@@ -136,16 +139,17 @@ public class GameEngine {
 
         changeBeginner();
 
-        if (!currentPlayer.hasShipLeft()) {
-            System.out.println("Félicitations " + ennemy.getName() + ". Vous avez coulé tous les bateaux de " + currentPlayer.getName() + ".\n" +
-                    "C'est à vous que revient la victoire.");
-        }
+        if(ennemy.getVerbose() || currentPlayer.getVerbose()) {
+            if (!currentPlayer.hasShipLeft()) {
+                System.out.println("Félicitations " + ennemy.getName() + ". Vous avez coulé tous les bateaux de " + currentPlayer.getName() + ".\n" +
+                        "C'est à vous que revient la victoire.");
+            }
 
-        if (!ennemy.hasShipLeft()) {
-            System.out.println("Félicitations " + currentPlayer.getName() + ". Vous avez coulé tous les bateaux de " + ennemy.getName() + ".\n" +
-                    "C'est à vous que revient la victoire.");
+            if (!ennemy.hasShipLeft()) {
+                System.out.println("Félicitations " + currentPlayer.getName() + ". Vous avez coulé tous les bateaux de " + ennemy.getName() + ".\n" +
+                        "C'est à vous que revient la victoire.");
+            }
         }
-
         if (!currentPlayer.hasShipLeft()) {
             ennemy.incrScore();
         } else {
