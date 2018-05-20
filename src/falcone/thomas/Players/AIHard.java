@@ -12,7 +12,7 @@ import static falcone.thomas.GameEngine.LEN;
 import static falcone.thomas.GameEngine.LETTERS;
 import static falcone.thomas.GameEngine.rulesShip;
 
-public class AIHardcore implements IPlayer{
+public class AIHard implements IPlayer{
 
     private String name;
     private int score;
@@ -23,7 +23,7 @@ public class AIHardcore implements IPlayer{
     private boolean beginner = false;
 
 
-    public AIHardcore(String name){
+    public AIHard(String name){
         this.name = name;
         shipsToBeConstructed = Arrays.copyOf(rulesShip,rulesShip.length);
     }

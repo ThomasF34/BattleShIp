@@ -44,7 +44,7 @@ public class GameEngine {
 
                 break;
             default: //level 2
-                p2 = new AIHardcore("Watson");
+                p2 = new AIHard("Watson");
                 break;
         }
 
@@ -62,7 +62,7 @@ public class GameEngine {
 
                 break;
             default: //level 2
-                p1 = new AIHardcore("Watson");
+                p1 = new AIHard("Watson");
                 break;
         }
 
@@ -76,7 +76,7 @@ public class GameEngine {
 
                 break;
             default: //level 2
-                p2 = new AIHardcore("DeepBlue");
+                p2 = new AIHard("DeepBlue");
                 break;
         }
 

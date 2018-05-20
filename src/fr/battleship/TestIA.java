@@ -80,7 +80,7 @@ public class TestIA {
             case 1:
                 return "Medium";
             default:
-                return "Hardcore";
+                return "Hard";
         }
     }
 
