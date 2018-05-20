@@ -1,7 +1,6 @@
 package falcone.thomas;
 
 import falcone.thomas.Board.Coord;
-import falcone.thomas.Board.Position;
 import falcone.thomas.Board.Ship;
 import falcone.thomas.Players.IPlayer;
 

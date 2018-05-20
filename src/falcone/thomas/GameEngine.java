@@ -166,7 +166,7 @@ public class GameEngine {
         p1.resetPlayer();
         p2.resetPlayer();
         p1.placeShips();
-        //If 2nd Player is human and infos are printed, we use transition to hide a little
+        //If 2nd player is human and infos are printed, we use transition to hide a little
         //the ships grid of first player
         if(p2.getVerbose()){
             transition(5);
