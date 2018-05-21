@@ -11,7 +11,7 @@ public abstract class Inputs{
     public static int askLevel(int i) {
         int lvl;
         do{
-            System.out.println("Quel est le niveau de l'IA n°"+ i +" ? (0 Beginner | 1 Medium | 2 Hard");
+            System.out.println("Quel est le niveau de l'IA n°"+ i +" ? (0 Beginner | 1 Medium | 2 Hard)");
             lvl = Integer.parseInt(sc.nextLine());//sc.nextInt() only read the int and following sc.nextLine()
             //will return an empty lines. With ParseInt(nextLine) we avoid this problem.
         }while(lvl < 0 || lvl > 2);
