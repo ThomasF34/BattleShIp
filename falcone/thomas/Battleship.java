@@ -33,6 +33,4 @@ public class Battleship {
             playAgain = Inputs.askContinue();
         }while(playAgain);
     }
-    // TODO: 16/05/2018 Verfi interfaces
-
 }
